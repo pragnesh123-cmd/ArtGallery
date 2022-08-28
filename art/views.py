@@ -18,16 +18,15 @@ def gallery(request):
 
 
 def contact(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        mail = request.POST['email']
-        msg = request.POST['msg']
-
-        obj = Contact(name=name, email=mail, msg=msg)
-        obj.save()
-        return render(request, "art/index.html")
-    else:
+    if request.method != "POST":
         return render(request, "art/contact.html")
+    name = request.POST['name']
+    mail = request.POST['email']
+    msg = request.POST['msg']
+
+    obj = Contact(name=name, email=mail, msg=msg)
+    obj.save()
+    return render(request, "art/index.html")
 
 def paintings(request):
     obj = Paintings.objects.all()
